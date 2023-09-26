@@ -2,7 +2,7 @@
 
 db/
 log/
-
+volumes/
 
 ### Ignore files & folders using gitignore.io
 
