@@ -8,5 +8,5 @@ RUN pip install -r requirements.txt
 
 RUN mkdir log
 
-ADD main.py .
+COPY . .
 CMD ["python", "./main.py"]
