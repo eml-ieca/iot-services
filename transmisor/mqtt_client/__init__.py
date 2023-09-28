@@ -1,6 +1,6 @@
 from paho.mqtt import client as MQTTClient
 
-MQTT_HOST = 'mosquitto'
+MQTT_HOST = 'localhost'
 MQTT_PORT = 1883
 
 def on_connect(client, userdata, flags, rc):

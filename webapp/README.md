@@ -1,8 +1,8 @@
-# Servicio Simulador (Python)
+# Servicio WebApp (Python)
 
 ### Detalles
 
-* Servicio responsable de hacer la simulación de un dispositivo IoT, publicando mensajes al broker MQTT (Mosquitto) con señales aleatorias.
+* Servicio de exponer una UI con Dashboard de Monitoreo IoT
 
 ### Comandos
 

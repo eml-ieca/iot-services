@@ -3,8 +3,11 @@ import sqlite3
 from datetime import datetime, timezone
 
 class BaseDeDatos:
-    # Ruta del servicio 'transmisor'
-    RUTA_PROYECTO = os.path.dirname(os.path.abspath(__file__))
+    # Ruta del servicio 'webapp'
+    RUTA_SERVICIO = os.path.dirname(os.path.abspath(__file__))
+    # Obtener la carpeta raíz del proyecto
+    RUTA_PROYECTO = os.path.dirname(RUTA_SERVICIO)
+    
     CARPETA_BD = 'db'
     NOMBRE_BD = 'data.db'
     ARCHIVO_DB = os.path.join(RUTA_PROYECTO, CARPETA_BD, NOMBRE_BD)

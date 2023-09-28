@@ -1,5 +1,4 @@
 from mqtt_client import client
-from bd_admin.operaciones import insertar_iot_temperatura
 import json
 
 TEMPERATURAS_TOPICO = "iot/temperaturas"
@@ -15,6 +14,8 @@ def messages_subscriptions():
         # qos. servicio de calidad (0,1,2)
         # retain. estatus del valor de retain (true/false)
     def on_message(_, __, message):
+        from bd_admin.operaciones import insertar_iot_temperatura
+        
         print(message.topic)
 
         payload_dict = json.loads(message.payload.decode())
