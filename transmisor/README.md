@@ -1,8 +1,8 @@
-# Servicio Simulador (Python)
+# Servicio Transmisor (Python)
 
 ### Detalles
 
-* Servicio responsable de hacer la simulación de un dispositivo IoT, publicando mensajes al broker MQTT (Mosquitto) con señales aleatorias.
+* Servicio responsable de realizar la transmisión de datos y resguardarlos en una BD (SQLite)
 
 ### Comandos
 
