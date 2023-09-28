@@ -10,8 +10,6 @@ def on_connect(client, userdata, flags, rc):
     else:
         print("No se pudo establecer conexión con el broker MQTT x_x", rc)
 
-print("MQTT Client Package")    
-
 client = MQTTClient.Client()
 client.on_connect = on_connect
 client.connect(MQTT_HOST, MQTT_PORT)

@@ -4,13 +4,14 @@ import logging
 import random
 import json
 import threading
+import datetime
 from mqtt_client import client
 
 CARPETA_LOG = 'log'
 ARCHIVO_LOG = 'messages.txt'
 MQTT_HOST = 'mosquitto'
 MQTT_PUERTO = 1883
-TEMPERATURAS_TOPICO = "iot/temperatures"
+TEMPERATURAS_TOPICO = "iot/temperaturas"
 
 # unir carpetas y archivo con os
 log_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), CARPETA_LOG, ARCHIVO_LOG)
@@ -26,7 +27,13 @@ def simulador_temperatura(nombre_de_sensor, frecuencia, rango_minimo, rango_maxi
         time.sleep(frecuencia)
         # random_number = random.randint(1, 10)
         # msg = f"value: {random_number}"
-        payload = { "sensor": nombre_de_sensor, "valor": generar_numero_random(rango_minimo, rango_maximo) }
+        tiempo_utc = datetime.datetime.utcnow()
+        
+        payload = { 
+            "sensor": nombre_de_sensor, 
+            "valor": generar_numero_random(rango_minimo, rango_maximo), 
+            "marcaDeTiempo": tiempo_utc.isoformat()
+        }
 
         # publish(topic, payload=None, qos=0, retain=False)
             # topic -> topico a publicar
@@ -48,10 +55,16 @@ def run_simulators():
     # primer hilo, 
         # target representa la función que sera ejecutada en el hilo
         # args los argumentos deseados
-    primer_hilo_simulador = threading.Thread(target=simulador_temperatura, args=("maquina_a.temperatura", 5, 100, 130))
+    primer_hilo_simulador = threading.Thread(
+        target=simulador_temperatura, 
+        args=("maquina_a.temperatura", 5, 60, 150)
+    )
 
     # segundo hilo
-    segundo_hilo_simulador = threading.Thread(target=simulador_temperatura, kwargs={"nombre_de_sensor": "maquina_b.temperatura", "frecuencia": 8, "rango_minimo": 10, "rango_maximo": 140})
+    segundo_hilo_simulador = threading.Thread(
+        target=simulador_temperatura, 
+        kwargs={"nombre_de_sensor": "maquina_b.temperatura", "frecuencia": 8, "rango_minimo": 30, "rango_maximo": 150}
+    )
 
     primer_hilo_simulador.start()
     segundo_hilo_simulador.start()

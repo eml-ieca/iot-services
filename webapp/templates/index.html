@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Monitor IoT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+            Monitor IoT 🖥️
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-50 text-bg-dark py-2" type="text" placeholder="Buscar..."
+            aria-label="Buscar" />
+        <!-- <div class="navbar-nav">
+                <div class="nav-item text-nowrap">
+                    <a class="nav-link px-3" href="#">Sign out</a>
+                </div>
+            </div> -->
+        <div class="dropstart me-3">
+            <a href="#" class="link-light text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" />
+            </a>
+            <ul class="dropdown-menu text-small dropdown-menu-dark">
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <i data-feather="user" class="me-2" style="width: 18px; height: 18px;"></i>
+                        Perfil
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <i data-feather="settings" class="me-2" style="width: 18px; height: 18px;"></i>
+                        Configuración
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">
+                                <i data-feather="monitor"></i>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" aria-current="page" href="#">
+                                <i data-feather="radio"></i>
+                                Máquinas IoT
+                            </a>
+                            <a class="nav-link" aria-current="page" href="#">
+                                <i data-feather="users"></i>
+                                Usuarios
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pb-5">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Dashboard</h1>
+            </div>
+            <div class="d-flex">
+                <div class="card text-bg-primary me-3" style="width: 14rem; align-self: flex-start;">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 align-self-center">
+                                <i data-feather="send" style="width: 45px; height: 45px;"></i>
+                            </div>
+                            <div class="flex-grow-1 text-end">
+                                <h1 id="totalMensajes">-</h1>
+                                <h6>Mensajes IoT</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card text-bg-warning me-3" style="width: 14rem; align-self: flex-start;">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 align-self-center">
+                                <i data-feather="target" style="width: 45px; height: 45px;"></i>
+                            </div>
+                            <div class="flex-grow-1 text-end">
+                                <h1>2</h1>
+                                <h6>Sensores</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card text-bg-light ms-auto" style="width: 25rem;">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 align-self-center">
+                                <i data-feather="activity" style="width: 45px; height: 45px;"></i>
+                            </div>
+                            <div class="flex-grow-1 text-end">
+                                <h6>Último Mensaje MQTT</h6>
+                                <div class="d-flex flex-column">
+                                    <strong id="topico">topico: -</strong>
+                                    <span id="mensaje" style="font-size: 0.7rem;">-</span>
+                                    <span id="marcaDeTiempo">hora: -</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row mt-3">
+                <div class="col-7">
+                    <h5>
+                        <i data-feather="activity" class="me-2" style="width: 25px; height: 25px;"></i>
+                        Sensores Tiempo-Real
+                    </h5>
+                    <canvas id="graficasSensoresTiempoReal"></canvas>
+                </div>
+                <div class="col-5">
+                    <h5>
+                        <i data-feather="alert-triangle" class="me-2" style="width: 25px; height: 25px;"></i>
+                        Registros Más Altos
+                        <div class="btn-group float-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary active">Hoy</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Semana</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Mes</button>
+                        </div>
+                    </h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sensor</th>
+                                <th scope="col">Valor</th>
+                                <th scope="col">Hora</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyRegistrosAltos">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/libs/mqtt.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/timezone.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/chartjs/chart.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/chartjs/moment-adapter.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/chartjs/streaming-plugin.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/chartjs/datalabels-plugin.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/feather-icons.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/consultas.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tiempo-real.js') }}"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+
+</html>

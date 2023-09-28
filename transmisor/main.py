@@ -2,7 +2,7 @@ from mqtt_client import client
 from bd_admin.operaciones import insertar_iot_temperatura
 import json
 
-TEMPERATURAS_TOPICO = "iot/temperatures"
+TEMPERATURAS_TOPICO = "iot/temperaturas"
 CORRIENTES_TOPICO = "iot/corrientes"
 MQTT_TOPICOS = [(TEMPERATURAS_TOPICO, 0), (CORRIENTES_TOPICO, 0)]
 
@@ -18,7 +18,7 @@ def messages_subscriptions():
         print(message.topic)
 
         payload_dict = json.loads(message.payload.decode())
-        insertar_iot_temperatura(payload_dict['sensor'], payload_dict['valor'])
+        insertar_iot_temperatura(payload_dict['sensor'], payload_dict['valor'], payload_dict['marcaDeTiempo'])
         # publish_to_db()
 
     client.subscribe(MQTT_TOPICOS)
