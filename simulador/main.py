@@ -57,13 +57,13 @@ def run_simulators():
         # args los argumentos deseados
     primer_hilo_simulador = threading.Thread(
         target=simulador_temperatura, 
-        args=("maquina_a.temperatura", 5, 60, 150)
+        args=("maquina_a.temperatura", 8, 40, 150)
     )
 
     # segundo hilo
     segundo_hilo_simulador = threading.Thread(
         target=simulador_temperatura, 
-        kwargs={"nombre_de_sensor": "maquina_b.temperatura", "frecuencia": 8, "rango_minimo": 30, "rango_maximo": 150}
+        kwargs={"nombre_de_sensor": "maquina_b.temperatura", "frecuencia": 10, "rango_minimo": 30, "rango_maximo": 150}
     )
 
     primer_hilo_simulador.start()

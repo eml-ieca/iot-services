@@ -26,7 +26,7 @@ function fetchRegistrosAltos() {
 
                     if (property == 1) {
                         // Cuando el valor registrado de temperatura es mayor a 130, visualizar color rojo
-                        if (item[property] > 130) {
+                        if (item[property] > 145) {
                             cell.style.color="red"
                         }
                     }
